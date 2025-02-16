@@ -20,6 +20,9 @@ public class Price {
     @Column(name = "date_end_validity")
     private LocalDate dateEndValidity;
 
+    @Column(name = "amount")
+    private Double amount;
+
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
@@ -50,6 +53,14 @@ public class Price {
 
     public void setDateEndValidity(LocalDate dateEndValidity) {
         this.dateEndValidity = dateEndValidity;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public Product getProduct() {
