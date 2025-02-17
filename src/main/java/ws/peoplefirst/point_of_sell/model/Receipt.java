@@ -1,5 +1,6 @@
 package ws.peoplefirst.point_of_sell.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -22,6 +23,7 @@ public class Receipt {
     private LocalDate date;
 
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<SelledProduct> selledProducts;
 
     public Receipt() {}
