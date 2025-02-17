@@ -1,7 +1,9 @@
 package ws.peoplefirst.point_of_sell.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.UUID;
 
 @Entity
@@ -11,6 +13,7 @@ public class SelledProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @ManyToOne

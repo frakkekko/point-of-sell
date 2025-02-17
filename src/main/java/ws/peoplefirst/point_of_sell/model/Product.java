@@ -1,7 +1,10 @@
 package ws.peoplefirst.point_of_sell.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +15,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @Column(name = "name")
@@ -27,12 +31,15 @@ public class Product {
     private String departement;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BarCode> barcodes;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Price> prices;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Stock> stock;
 
     public Product() {};

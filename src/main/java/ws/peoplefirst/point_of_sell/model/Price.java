@@ -1,7 +1,10 @@
 package ws.peoplefirst.point_of_sell.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,6 +15,7 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @Column(name = "date_start_validity")
@@ -24,6 +28,7 @@ public class Price {
     private Double amount;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -33,6 +38,8 @@ public class Price {
         this.dateStartValidity = dateStartValidity;
         this.dateEndValidity = dateEndValidity;
         this.product = product;
+
+        System.out.println(this);
     }
 
     public UUID getId() {

@@ -1,7 +1,9 @@
 package ws.peoplefirst.point_of_sell.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +15,7 @@ public class Receipt {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @Column(name = "date")

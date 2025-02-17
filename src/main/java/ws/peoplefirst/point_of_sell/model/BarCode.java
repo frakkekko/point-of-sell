@@ -1,7 +1,10 @@
 package ws.peoplefirst.point_of_sell.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,6 +15,7 @@ public class BarCode {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @Column(name = "code")
@@ -24,6 +28,7 @@ public class BarCode {
     private LocalDate dateEndValidity;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
