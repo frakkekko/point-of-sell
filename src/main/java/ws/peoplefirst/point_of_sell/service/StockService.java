@@ -23,7 +23,7 @@ public class StockService {
         return stockRepository.findAll().stream().map(stock -> StockMapper.toResponseDTO(stock)).toList();
     }
 
-    public void deleteById(UUID id) {
-        stockRepository.deleteById(id);
+    public StockResponseDTO getById(UUID id) {
+        return StockMapper.toResponseDTO(stockRepository.getReferenceById(id));
     }
 }

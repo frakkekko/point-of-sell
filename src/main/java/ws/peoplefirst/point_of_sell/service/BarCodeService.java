@@ -23,7 +23,7 @@ public class BarCodeService {
         return barCodeRepository.findAll().stream().map(BarCodeMapper::toResponseDTO).toList();
     }
 
-    public void deleteById(UUID id) {
-        barCodeRepository.deleteById(id);
+    public BarcodeResponseDTO getById(UUID id) {
+        return BarCodeMapper.toResponseDTO(barCodeRepository.getReferenceById(id));
     }
 }

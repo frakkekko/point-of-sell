@@ -23,7 +23,7 @@ public class SelledProductService {
         return selledProductRepository.findAll().stream().map(selledProduct -> SelledProductMapper.toResponseDTO(selledProduct)).toList();
     }
 
-    public void deleteById(UUID id) {
-        selledProductRepository.deleteById(id);
+    public SelledProductResponseDTO getById(UUID id) {
+        return SelledProductMapper.toResponseDTO(selledProductRepository.getReferenceById(id));
     }
 }

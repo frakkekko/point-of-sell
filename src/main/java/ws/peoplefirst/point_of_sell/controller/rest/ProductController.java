@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ws.peoplefirst.point_of_sell.DTO.product.ProductResponseDTO;
-import ws.peoplefirst.point_of_sell.model.Product;
 import ws.peoplefirst.point_of_sell.service.ProductService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class ProductController {
@@ -24,13 +22,12 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity getAll() {
-        List<ProductResponseDTO> products = productService.getAll();
-        return new ResponseEntity(products, HttpStatus.OK);
+    public ResponseEntity<List<ProductResponseDTO>> getAll() {
+        return new ResponseEntity(productService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/product")
-    public void add(@RequestBody Product product) {
-        productService.add(product);
+    @GetMapping("/product/{id}")
+    public ResponseEntity<ProductResponseDTO> getProductById(UUID id) {
+        return new ResponseEntity(productService.getById(id), HttpStatus.OK);
     }
 }

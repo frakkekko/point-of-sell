@@ -23,7 +23,7 @@ public class ReceiptService {
         return receiptRepository.findAll().stream().map(receipt -> ReceiptMapper.toResponseDTO(receipt)).toList();
     }
 
-    public void deleteById(UUID id) {
-        receiptRepository.deleteById(id);
+    public ReceiptResponseDTO getById(UUID id) {
+        return ReceiptMapper.toResponseDTO(receiptRepository.getReferenceById(id));
     }
 }

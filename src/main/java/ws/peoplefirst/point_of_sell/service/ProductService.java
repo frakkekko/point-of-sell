@@ -28,7 +28,7 @@ public class ProductService {
         return productRepository.findAll().stream().map(product -> ProductMapper.toResponseDTO(product)).toList();
     }
 
-    public void deleteById(UUID id) {
-        productRepository.deleteById(id);
+    public ProductResponseDTO getById(UUID id) {
+        return ProductMapper.toResponseDTO(productRepository.getReferenceById(id));
     }
 }

@@ -23,7 +23,7 @@ public class PriceService {
         return priceRepository.findAll().stream().map(price -> PriceMapper.toResponseDTO(price)).toList();
     }
 
-    public void deleteById(UUID id) {
-        priceRepository.deleteById(id);
+    public PriceResponseDTO getById(UUID id) {
+        return PriceMapper.toResponseDTO(priceRepository.getReferenceById(id));
     }
 }
