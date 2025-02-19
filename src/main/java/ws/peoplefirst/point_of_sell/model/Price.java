@@ -34,7 +34,7 @@ public class Price {
     private BarCode barcode;
 
     @JsonProperty
-    public UUID getProductId() {
+    public UUID getBarCodeId() {
         return barcode.getId();
     }
 
@@ -44,8 +44,6 @@ public class Price {
         this.dateStartValidity = dateStartValidity;
         this.dateEndValidity = dateEndValidity;
         this.barcode = barcode;
-
-        System.out.println(this);
     }
 
     public UUID getId() {

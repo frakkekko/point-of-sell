@@ -28,16 +28,20 @@ public class SelledProduct {
     @JsonBackReference
     private BarCode barCode;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @JsonProperty
-    public UUID getProductId() {
+    public UUID getBarCodeId() {
         return barCode.getId();
     }
 
     public SelledProduct() {}
 
-    public SelledProduct(Receipt receipt, BarCode barCode) {
+    public SelledProduct(Receipt receipt, BarCode barCode, Integer quantity) {
         this.receipt = receipt;
         this.barCode = barCode;
+        this.quantity = quantity;
     }
 
     public UUID getId() {
@@ -58,5 +62,13 @@ public class SelledProduct {
 
     public void setBarCode(BarCode barCode) {
         this.barCode = barCode;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
