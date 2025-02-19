@@ -2,7 +2,8 @@ package ws.peoplefirst.point_of_sell.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ws.peoplefirst.point_of_sell.model.Price;
+import ws.peoplefirst.point_of_sell.DTO.price.PriceResponseDTO;
+import ws.peoplefirst.point_of_sell.mapper.PriceMapper;
 import ws.peoplefirst.point_of_sell.repository.PriceRepository;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class PriceService {
         this.priceRepository = priceRepository;
     }
 
-    public List<Price> getAll() {
-        return priceRepository.findAll();
+    public List<PriceResponseDTO> getAll() {
+        return priceRepository.findAll().stream().map(price -> PriceMapper.toResponseDTO(price)).toList();
     }
 
     public void deleteById(UUID id) {

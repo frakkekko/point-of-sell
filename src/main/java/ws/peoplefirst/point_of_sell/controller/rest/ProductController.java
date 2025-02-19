@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ws.peoplefirst.point_of_sell.DTO.product.ProductResponseDTO;
 import ws.peoplefirst.point_of_sell.model.Product;
 import ws.peoplefirst.point_of_sell.service.ProductService;
 
@@ -24,7 +25,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity getAll() {
-        List<Product> products = productService.getAll();
+        List<ProductResponseDTO> products = productService.getAll();
         return new ResponseEntity(products, HttpStatus.OK);
     }
 

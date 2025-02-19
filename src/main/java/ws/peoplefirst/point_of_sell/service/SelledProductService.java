@@ -2,7 +2,8 @@ package ws.peoplefirst.point_of_sell.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ws.peoplefirst.point_of_sell.model.SelledProduct;
+import ws.peoplefirst.point_of_sell.DTO.selledProduct.SelledProductResponseDTO;
+import ws.peoplefirst.point_of_sell.mapper.SelledProductMapper;
 import ws.peoplefirst.point_of_sell.repository.SelledProductRepository;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class SelledProductService {
         this.selledProductRepository = selledProductRepository;
     }
 
-    public List<SelledProduct> getAll() {
-        return selledProductRepository.findAll();
+    public List<SelledProductResponseDTO> getAll() {
+        return selledProductRepository.findAll().stream().map(selledProduct -> SelledProductMapper.toResponseDTO(selledProduct)).toList();
     }
 
     public void deleteById(UUID id) {

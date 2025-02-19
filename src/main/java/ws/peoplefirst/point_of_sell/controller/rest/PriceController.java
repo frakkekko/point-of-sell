@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ws.peoplefirst.point_of_sell.DTO.price.PriceResponseDTO;
 import ws.peoplefirst.point_of_sell.model.Price;
 import ws.peoplefirst.point_of_sell.service.PriceService;
 
@@ -22,7 +23,7 @@ public class PriceController {
 
     @GetMapping("/prices")
     public ResponseEntity getAll() {
-        List<Price> prices = priceService.getAll();
+        List<PriceResponseDTO> prices = priceService.getAll();
         return new ResponseEntity(prices, HttpStatus.OK);
     }
 }

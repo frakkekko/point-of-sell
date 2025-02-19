@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ws.peoplefirst.point_of_sell.model.SelledProduct;
+import ws.peoplefirst.point_of_sell.DTO.selledProduct.SelledProductResponseDTO;
 import ws.peoplefirst.point_of_sell.service.SelledProductService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class SelledProductController {
 
     @GetMapping("/selled-products")
     public ResponseEntity getAll() {
-        List<SelledProduct> selledProducts = selledProductService.getAll();
+        List<SelledProductResponseDTO> selledProducts = selledProductService.getAll();
         return new ResponseEntity(selledProducts, HttpStatus.OK);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ws.peoplefirst.point_of_sell.model.BarCode;
+import ws.peoplefirst.point_of_sell.DTO.barcode.BarcodeResponseDTO;
 import ws.peoplefirst.point_of_sell.service.BarCodeService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class BarCodeController {
 
     @GetMapping("/barcodes")
     public ResponseEntity getAll() {
-        List<BarCode> barCodes = barCodeService.getAll();
+        List<BarcodeResponseDTO> barCodes = barCodeService.getAll();
         return new ResponseEntity(barCodes, HttpStatus.OK);
     }
 }

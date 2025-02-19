@@ -9,6 +9,9 @@ public class ReceiptRequestDTO {
     private LocalDate date;
     private List<Map<UUID, Integer>> barcodes;  // id dei prodotti (no selled product)
 
+    public ReceiptRequestDTO() {
+    }
+
     public ReceiptRequestDTO(LocalDate date, List<Map<UUID, Integer>> barcodes) {
         this.date = date;
         this.barcodes = barcodes;

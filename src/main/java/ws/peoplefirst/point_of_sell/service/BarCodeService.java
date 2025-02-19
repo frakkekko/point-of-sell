@@ -2,7 +2,8 @@ package ws.peoplefirst.point_of_sell.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ws.peoplefirst.point_of_sell.model.BarCode;
+import ws.peoplefirst.point_of_sell.DTO.barcode.BarcodeResponseDTO;
+import ws.peoplefirst.point_of_sell.mapper.BarCodeMapper;
 import ws.peoplefirst.point_of_sell.repository.BarCodeRepository;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class BarCodeService {
         this.barCodeRepository = barCodeRepository;
     }
 
-    public List<BarCode> getAll() {
-        return barCodeRepository.findAll();
+    public List<BarcodeResponseDTO> getAll() {
+        return barCodeRepository.findAll().stream().map(BarCodeMapper::toResponseDTO).toList();
     }
 
     public void deleteById(UUID id) {
