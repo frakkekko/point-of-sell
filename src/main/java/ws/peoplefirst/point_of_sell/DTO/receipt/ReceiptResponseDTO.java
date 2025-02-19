@@ -2,6 +2,8 @@ package ws.peoplefirst.point_of_sell.DTO.receipt;
 
 import ws.peoplefirst.point_of_sell.DTO.selledProduct.SelledProductResponseDTO;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -47,7 +49,7 @@ public class ReceiptResponseDTO {
     }
 
     public Double getTotal() {
-        return total;
+        return new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public void setTotal(Double total) {

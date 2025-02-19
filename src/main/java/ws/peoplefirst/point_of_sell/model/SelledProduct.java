@@ -27,12 +27,16 @@ public class SelledProduct {
     @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name = "total")
+    private Double total;
+
     public SelledProduct() {}
 
-    public SelledProduct(Receipt receipt, BarCode barCode, Integer quantity) {
+    public SelledProduct(Receipt receipt, BarCode barCode, Integer quantity, Double singlePrice) {
         this.receipt = receipt;
         this.barCode = barCode;
         this.quantity = quantity;
+        this.total = singlePrice * quantity;
     }
 
     public UUID getId() {
@@ -61,5 +65,13 @@ public class SelledProduct {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

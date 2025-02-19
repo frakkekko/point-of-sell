@@ -10,7 +10,8 @@ public class SelledProductMapper {
                 selledProduct.getId(),
                 selledProduct.getReceipt().getId(),
                 selledProduct.getQuantity(),
-                selledProduct.getBarCode().getId()
+                selledProduct.getBarCode().getId(),
+                selledProduct.getTotal()
         );
     }
 }

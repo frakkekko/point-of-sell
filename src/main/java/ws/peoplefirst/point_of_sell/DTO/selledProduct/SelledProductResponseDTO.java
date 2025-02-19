@@ -1,5 +1,7 @@
 package ws.peoplefirst.point_of_sell.DTO.selledProduct;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 public class SelledProductResponseDTO {
@@ -7,15 +9,17 @@ public class SelledProductResponseDTO {
     private UUID receiptId;
     private UUID barCodeId;
     private Integer quantity;
+    private Double total;
 
     public SelledProductResponseDTO() {
     }
 
-    public SelledProductResponseDTO(UUID id, UUID receiptId, Integer quantity, UUID barCodeId) {
+    public SelledProductResponseDTO(UUID id, UUID receiptId, Integer quantity, UUID barCodeId, Double singlePrice) {
         this.id = id;
         this.receiptId = receiptId;
         this.quantity = quantity;
         this.barCodeId = barCodeId;
+        this.total = singlePrice * quantity;
     }
 
     public UUID getId() {
@@ -48,5 +52,13 @@ public class SelledProductResponseDTO {
 
     public void setReceiptId(UUID receiptId) {
         this.receiptId = receiptId;
+    }
+
+    public Double getTotal() {
+        return new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }
