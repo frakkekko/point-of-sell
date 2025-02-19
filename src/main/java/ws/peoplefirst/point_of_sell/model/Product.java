@@ -1,6 +1,5 @@
 package ws.peoplefirst.point_of_sell.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -31,11 +30,9 @@ public class Product {
     private String departement;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<BarCode> barcodes;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private Stock stock;
 
     public Product() {};

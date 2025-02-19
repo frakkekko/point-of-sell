@@ -1,8 +1,5 @@
 package ws.peoplefirst.point_of_sell.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -31,18 +28,11 @@ public class BarCode {
     private LocalDate dateEndValidity;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @OneToMany(mappedBy = "barcode", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Price> prices;
-
-    @JsonProperty
-    public UUID getProductId() {
-        return product.getId();
-    }
 
     public BarCode() {}
 

@@ -1,6 +1,5 @@
 package ws.peoplefirst.point_of_sell.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -26,7 +25,6 @@ public class Stock {
 
     @OneToOne
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
     private Product product;
 
     public Stock() {}

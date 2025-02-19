@@ -1,7 +1,5 @@
 package ws.peoplefirst.point_of_sell.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -20,21 +18,14 @@ public class SelledProduct {
 
     @ManyToOne
     @JoinColumn(name = "receipt_id", nullable = false)
-    @JsonBackReference
     private Receipt receipt;
 
     @ManyToOne
     @JoinColumn(name = "barcode_id", nullable = false)
-    @JsonBackReference
     private BarCode barCode;
 
     @Column(name = "quantity")
     private Integer quantity;
-
-    @JsonProperty
-    public UUID getBarCodeId() {
-        return barCode.getId();
-    }
 
     public SelledProduct() {}
 
