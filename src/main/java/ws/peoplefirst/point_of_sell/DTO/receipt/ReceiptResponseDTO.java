@@ -1,20 +1,21 @@
 package ws.peoplefirst.point_of_sell.DTO.receipt;
 
-import ws.peoplefirst.point_of_sell.model.SelledProduct;
-
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class ReceiptResponseDTO {
     private UUID id;
     private LocalDate date;
-    private List<String> selledProductsIds;
+    private List<Map<UUID, Integer>> selledProducts;
+    private Double total;
 
-    public ReceiptResponseDTO(UUID id, LocalDate date, List<String> selledProductsIds) {
+    public ReceiptResponseDTO(UUID id, LocalDate date, List<Map<UUID, Integer>> selledProducts, Double total) {
         this.id = id;
         this.date = date;
-        this.selledProductsIds = selledProductsIds;
+        this.selledProducts = selledProducts;
+        this.total = total;
     }
 
     public UUID getId() {
@@ -33,11 +34,19 @@ public class ReceiptResponseDTO {
         this.date = date;
     }
 
-    public List<String> getSelledProductsIds() {
-        return selledProductsIds;
+    public List<Map<UUID, Integer>> getSelledProducts() {
+        return selledProducts;
     }
 
-    public void setSelledProductsIds(List<String> selledProductsIds) {
-        this.selledProductsIds = selledProductsIds;
+    public void setSelledProducts(List<Map<UUID, Integer>> selledProducts) {
+        this.selledProducts = selledProducts;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

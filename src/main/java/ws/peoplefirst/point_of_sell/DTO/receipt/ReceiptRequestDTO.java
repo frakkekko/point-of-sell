@@ -2,15 +2,16 @@ package ws.peoplefirst.point_of_sell.DTO.receipt;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class ReceiptRequestDTO {
     private LocalDate date;
-    private List<UUID> productIds;  // id dei prodotti (no selled product)
+    private List<Map<UUID, Integer>> barcodes;  // id dei prodotti (no selled product)
 
-    public ReceiptRequestDTO(LocalDate date, List<String> productIds) {
+    public ReceiptRequestDTO(LocalDate date, List<Map<UUID, Integer>> barcodes) {
         this.date = date;
-        this.productIds = productIds.stream().map(productIdStr -> UUID.fromString(productIdStr)).toList();
+        this.barcodes = barcodes;
     }
 
     public LocalDate getDate() {
@@ -21,11 +22,11 @@ public class ReceiptRequestDTO {
         this.date = date;
     }
 
-    public List<UUID> getProductIds() {
-        return productIds;
+    public List<Map<UUID, Integer>> getBarcodes() {
+        return barcodes;
     }
 
-    public void setProductIds(List<UUID> productIds) {
-        this.productIds = productIds;
+    public void setBarcodes(List<Map<UUID, Integer>> barcodes) {
+        this.barcodes = barcodes;
     }
 }
