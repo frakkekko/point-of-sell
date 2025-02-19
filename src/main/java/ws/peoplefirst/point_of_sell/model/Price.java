@@ -30,20 +30,20 @@ public class Price {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @JoinColumn(name = "barcode_id", nullable = false)
+    private BarCode barcode;
 
     @JsonProperty
     public UUID getProductId() {
-        return product.getId();
+        return barcode.getId();
     }
 
     public Price() {}
 
-    public Price(LocalDate dateStartValidity, LocalDate dateEndValidity, Product product) {
+    public Price(LocalDate dateStartValidity, LocalDate dateEndValidity, BarCode barcode) {
         this.dateStartValidity = dateStartValidity;
         this.dateEndValidity = dateEndValidity;
-        this.product = product;
+        this.barcode = barcode;
 
         System.out.println(this);
     }
@@ -76,11 +76,11 @@ public class Price {
         this.amount = amount;
     }
 
-    public Product getProduct() {
-        return product;
+    public BarCode getBarcode() {
+        return barcode;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setBarcode(BarCode barcode) {
+        this.barcode = barcode;
     }
 }

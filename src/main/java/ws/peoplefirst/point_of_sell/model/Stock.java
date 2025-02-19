@@ -21,16 +21,20 @@ public class Stock {
     @Column(name = "date")
     private LocalDate date;
 
-    @ManyToOne
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @OneToOne
     @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
 
     public Stock() {}
 
-    public Stock(LocalDate date, Product product) {
+    public Stock(LocalDate date, Product product, Integer quantity) {
         this.date = date;
         this.product = product;
+        this.quantity = quantity;
     }
 
     public UUID getId() {
@@ -55,5 +59,13 @@ public class Stock {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

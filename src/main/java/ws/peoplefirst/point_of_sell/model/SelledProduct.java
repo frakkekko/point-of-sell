@@ -24,20 +24,20 @@ public class SelledProduct {
     private Receipt receipt;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "barcode_id", nullable = false)
     @JsonBackReference
-    private Product product;
+    private BarCode barCode;
 
     @JsonProperty
     public UUID getProductId() {
-        return product.getId();
+        return barCode.getId();
     }
 
     public SelledProduct() {}
 
-    public SelledProduct(Receipt receipt, Product product) {
+    public SelledProduct(Receipt receipt, BarCode barCode) {
         this.receipt = receipt;
-        this.product = product;
+        this.barCode = barCode;
     }
 
     public UUID getId() {
@@ -52,11 +52,11 @@ public class SelledProduct {
         this.receipt = receipt;
     }
 
-    public Product getProduct() {
-        return product;
+    public BarCode getBarCode() {
+        return barCode;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setBarCode(BarCode barCode) {
+        this.barCode = barCode;
     }
 }

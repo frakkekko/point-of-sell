@@ -34,23 +34,18 @@ public class Product {
     @JsonManagedReference
     private List<BarCode> barcodes;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Price> prices;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Stock> stock;
+    private Stock stock;
 
     public Product() {};
 
-    public Product(String name, Double weight, String unitType, String departement, List<BarCode> barcodes, List<Price> prices, List<Stock> stock) {
+    public Product(String name, Double weight, String unitType, String departement, List<BarCode> barcodes, Stock stock) {
         this.name = name;
         this.weight = weight;
         this.unitType = unitType;
         this.departement = departement;
         this.barcodes = barcodes;
-        this.prices = prices;
         this.stock = stock;
     }
 
@@ -98,19 +93,11 @@ public class Product {
         this.barcodes = barcodes;
     }
 
-    public List<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
-    }
-
-    public List<Stock> getStock() {
+    public Stock getStock() {
         return stock;
     }
 
-    public void setStock(List<Stock> stock) {
+    public void setStock(Stock stock) {
         this.stock = stock;
     }
 }

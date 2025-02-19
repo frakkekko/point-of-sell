@@ -1,12 +1,14 @@
 package ws.peoplefirst.point_of_sell.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Types;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +35,10 @@ public class BarCode {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @OneToMany(mappedBy = "barcode", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Price> prices;
+
     @JsonProperty
     public UUID getProductId() {
         return product.getId();
@@ -40,11 +46,12 @@ public class BarCode {
 
     public BarCode() {}
 
-    public BarCode(String code, LocalDate dateStartValidity, LocalDate dateEndValidity, Product product) {
+    public BarCode(String code, LocalDate dateStartValidity, LocalDate dateEndValidity, Product product, List<Price> prices) {
         this.code = code;
         this.dateStartValidity = dateStartValidity;
         this.dateEndValidity = dateEndValidity;
         this.product = product;
+        this.prices = prices;
     }
 
     public UUID getId() {
@@ -81,5 +88,13 @@ public class BarCode {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public List<Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(List<Price> prices) {
+        this.prices = prices;
     }
 }

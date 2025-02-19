@@ -22,15 +22,19 @@ public class Receipt {
     @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "total")
+    private Double total;
+
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<SelledProduct> selledProducts;
 
     public Receipt() {}
 
-    public Receipt(LocalDate date, List<SelledProduct> selledProducts) {
+    public Receipt(LocalDate date, List<SelledProduct> selledProducts, Double total) {
         this.date = date;
         this.selledProducts = selledProducts;
+        this.total = total;
     }
 
     public UUID getId() {
@@ -51,5 +55,13 @@ public class Receipt {
     
     public List<SelledProduct> getSelledProducts() {
         return selledProducts;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }
