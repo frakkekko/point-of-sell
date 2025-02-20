@@ -5,21 +5,21 @@ import java.util.List;
 
 public class ReportTotalCollectionByProductByDayResponseDTO {
 
-    private List<ReportTotalCollectionByProductItem> collectionByProductList;
+    private List<ReportTotalCollectionByProductItemDTO> collectionByProductList;
     private Integer totalItemsSold;
     private LocalDate date;
 
-    public ReportTotalCollectionByProductByDayResponseDTO(List<ReportTotalCollectionByProductItem> collectionByProductList, Integer totalItemsSold, LocalDate date) {
+    public ReportTotalCollectionByProductByDayResponseDTO(List<ReportTotalCollectionByProductItemDTO> collectionByProductList, Integer totalItemsSold, LocalDate date) {
         this.collectionByProductList = collectionByProductList;
         this.totalItemsSold = totalItemsSold;
         this.date = date;
     }
 
-    public List<ReportTotalCollectionByProductItem> getCollectionByProductList() {
+    public List<ReportTotalCollectionByProductItemDTO> getCollectionByProductList() {
         return collectionByProductList;
     }
 
-    public void setCollectionByProductList(List<ReportTotalCollectionByProductItem> collectionByProductList) {
+    public void setCollectionByProductList(List<ReportTotalCollectionByProductItemDTO> collectionByProductList) {
         this.collectionByProductList = collectionByProductList;
     }
 

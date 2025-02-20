@@ -33,4 +33,9 @@ public class ReportController {
     public ResponseEntity<ReportTotalCollectionByProductByDayResponseDTO> getProductsSoldRecap(@PathVariable LocalDate date) {
         return new ResponseEntity<>(reportService.calculateSoldProductsForDay(date), HttpStatus.OK);
     }
+
+//    @GetMapping("/total-collection-by-departement-day/{date}")
+//    public ResponseEntity<ReportTotalCollectionByDepartmentByDayResponseDTO> getCollectionForDepartmentDay(@PathVariable LocalDate date) {
+//
+//    }
 }

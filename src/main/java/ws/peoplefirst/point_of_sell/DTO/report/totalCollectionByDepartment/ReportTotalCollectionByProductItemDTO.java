@@ -2,14 +2,14 @@ package ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment;
 
 import java.util.UUID;
 
-public class ReportTotalCollectionByProductItem {
+public class ReportTotalCollectionByProductItemDTO {
 
     private UUID productId;
     private String productName;
     private Integer quantity;
     private Double totalCollection;
 
-    public ReportTotalCollectionByProductItem(UUID productId, String productName, Integer quantity, Double totalCollection) {
+    public ReportTotalCollectionByProductItemDTO(UUID productId, String productName, Integer quantity, Double totalCollection) {
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductByDayResponseDTO;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductItem;
+import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductItemDTO;
 import ws.peoplefirst.point_of_sell.model.Receipt;
 import ws.peoplefirst.point_of_sell.model.SelledProduct;
 import ws.peoplefirst.point_of_sell.repository.ReceiptRepository;
@@ -38,15 +38,15 @@ public class ReportService {
                 .flatMap(receipt -> receipt.getSelledProducts().stream())
                 .toList();
 
-        List<ReportTotalCollectionByProductItem> normalizedProductList = new ArrayList<>();
+        List<ReportTotalCollectionByProductItemDTO> normalizedProductList = new ArrayList<>();
 
         selledProducts.forEach(selledProduct -> {
-            Optional<ReportTotalCollectionByProductItem> normItemFound = normalizedProductList.stream()
+            Optional<ReportTotalCollectionByProductItemDTO> normItemFound = normalizedProductList.stream()
                     .filter(normItem -> normItem.getProductId() == selledProduct.getBarCode().getProduct().getId())
                     .findFirst();
 
             if(normItemFound.isEmpty()) {
-                normalizedProductList.addLast(new ReportTotalCollectionByProductItem(
+                normalizedProductList.addLast(new ReportTotalCollectionByProductItemDTO(
                         selledProduct.getBarCode().getProduct().getId(),
                         selledProduct.getBarCode().getProduct().getName(),
                         selledProduct.getQuantity(),
@@ -65,10 +65,14 @@ public class ReportService {
 
         return new ReportTotalCollectionByProductByDayResponseDTO(
                 normalizedProductList,
-                normalizedProductList.stream().mapToInt(ReportTotalCollectionByProductItem::getQuantity).sum(),
+                normalizedProductList.stream().mapToInt(ReportTotalCollectionByProductItemDTO::getQuantity).sum(),
                 date
         );
     }
+
+//    public ReportTotalCollectionByDepartmentByDayResponseDTO calculateCollectionForDepartmentDay(LocalDate date) {
+//
+//    }
 
     // --------------------------------------------------------------------
 
