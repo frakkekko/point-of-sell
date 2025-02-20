@@ -36,7 +36,7 @@ public class SelledProduct {
         this.receipt = receipt;
         this.barCode = barCode;
         this.quantity = quantity;
-        this.total = singlePrice * quantity;
+        this.total = singlePrice * (double) quantity;
     }
 
     public UUID getId() {

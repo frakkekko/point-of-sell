@@ -6,4 +6,5 @@ import ws.peoplefirst.point_of_sell.model.Stock;
 import java.util.UUID;
 
 public interface StockRepository extends JpaRepository<Stock, UUID> {
+    public Stock findByProductId(UUID productId);
 }

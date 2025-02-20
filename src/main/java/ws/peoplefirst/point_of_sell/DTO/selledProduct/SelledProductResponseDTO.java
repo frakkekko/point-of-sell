@@ -14,12 +14,12 @@ public class SelledProductResponseDTO {
     public SelledProductResponseDTO() {
     }
 
-    public SelledProductResponseDTO(UUID id, UUID receiptId, Integer quantity, UUID barCodeId, Double singlePrice) {
+    public SelledProductResponseDTO(UUID id, UUID receiptId, Integer quantity, UUID barCodeId, Double total) {
         this.id = id;
         this.receiptId = receiptId;
         this.quantity = quantity;
         this.barCodeId = barCodeId;
-        this.total = singlePrice * quantity;
+        this.total = total;
     }
 
     public UUID getId() {
