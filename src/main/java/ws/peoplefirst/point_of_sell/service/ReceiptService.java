@@ -52,6 +52,8 @@ public class ReceiptService {
         return ReceiptMapper.toResponseDTO(receiptSaved);
     }
 
+    // --------------------------------------------------------------
+
     private List<SelledProduct> getSelledProductsFromReceiptRequestDTO(ReceiptRequestDTO receiptRequestDTO, Receipt receipt) {
         return receiptRequestDTO.getBarcodes().stream().map(barcodeMap -> {
             UUID barcodeId = UUID.fromString(barcodeMap.get("id"));
