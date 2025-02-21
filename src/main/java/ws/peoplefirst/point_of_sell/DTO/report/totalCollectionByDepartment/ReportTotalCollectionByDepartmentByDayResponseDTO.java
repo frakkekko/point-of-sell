@@ -5,19 +5,19 @@ import java.util.List;
 
 public class ReportTotalCollectionByDepartmentByDayResponseDTO {
 
-    private List<ReportTotalCollectionByDepartmentDayItemDTO> collectionByDepartment;
+    private List<ReportTotalCollectionByDepartmentItemDTO> collectionByDepartment;
     private LocalDate date;
 
-    public ReportTotalCollectionByDepartmentByDayResponseDTO(List<ReportTotalCollectionByDepartmentDayItemDTO> collectionByDepartment, LocalDate date) {
+    public ReportTotalCollectionByDepartmentByDayResponseDTO(List<ReportTotalCollectionByDepartmentItemDTO> collectionByDepartment, LocalDate date) {
         this.collectionByDepartment = collectionByDepartment;
         this.date = date;
     }
 
-    public List<ReportTotalCollectionByDepartmentDayItemDTO> getCollectionByDepartment() {
+    public List<ReportTotalCollectionByDepartmentItemDTO> getCollectionByDepartment() {
         return collectionByDepartment;
     }
 
-    public void setCollectionByDepartment(List<ReportTotalCollectionByDepartmentDayItemDTO> collectionByDepartment) {
+    public void setCollectionByDepartment(List<ReportTotalCollectionByDepartmentItemDTO> collectionByDepartment) {
         this.collectionByDepartment = collectionByDepartment;
     }
 

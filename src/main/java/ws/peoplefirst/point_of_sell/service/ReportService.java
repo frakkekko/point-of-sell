@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByDayResponseDTO;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentDayItemDTO;
+import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentItemDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductByDayResponseDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductItemDTO;
 import ws.peoplefirst.point_of_sell.model.Receipt;
@@ -82,11 +82,11 @@ public class ReportService {
         Map<String,List<SelledProduct>> groupedData = selledProducts.stream().collect(Collectors.groupingBy(
                 selledProduct -> selledProduct.getBarCode().getProduct().getDepartement()));
 
-        List<ReportTotalCollectionByDepartmentDayItemDTO> departmentDayItemList = new ArrayList<>();
+        List<ReportTotalCollectionByDepartmentItemDTO> departmentDayItemList = new ArrayList<>();
 
         groupedData.forEach((department, selledProductList) -> {
             departmentDayItemList.addLast(
-                    new ReportTotalCollectionByDepartmentDayItemDTO(
+                    new ReportTotalCollectionByDepartmentItemDTO(
                             department,
                             selledProductList.stream().mapToDouble(SelledProduct::getTotal).sum()
                             )
