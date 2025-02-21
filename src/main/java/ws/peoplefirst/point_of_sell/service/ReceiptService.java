@@ -11,8 +11,7 @@ import ws.peoplefirst.point_of_sell.repository.ReceiptRepository;
 import ws.peoplefirst.point_of_sell.repository.StockRepository;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ReceiptService {
@@ -39,12 +38,14 @@ public class ReceiptService {
     public ReceiptResponseDTO createNewReceipt(ReceiptRequestDTO receiptRequestDTO) {
 
         Receipt receipt = new Receipt();
-        List<SelledProduct> selledProducts = getSelledProductsFromReceiptRequestDTO(receiptRequestDTO, receipt);
+        ReceiptRequestDTO normalizedReceiptRequestDTO = normalizeReceiptRequestDTO(receiptRequestDTO);
+
+        List<SelledProduct> selledProducts = getSelledProductsFromReceiptRequestDTO(normalizedReceiptRequestDTO, receipt);
 
         updateStock(selledProducts);
 
         receipt.setSelledProducts(selledProducts);
-        receipt.setDate(receiptRequestDTO.getDate());
+        receipt.setDate(normalizedReceiptRequestDTO.getDate());
         receipt.setTotal(calcReceiptTotal(selledProducts));
 
         Receipt receiptSaved = receiptRepository.save(receipt);
@@ -86,5 +87,23 @@ public class ReceiptService {
         return selledProducts.stream()
                 .map(selledProduct -> selledProduct.getTotal())
                 .reduce(0.0, Double::sum);
+    }
+
+    private ReceiptRequestDTO normalizeReceiptRequestDTO(ReceiptRequestDTO receiptRequestDTO) {
+        List<Map<String, String>> normalizedBarcodes = new ArrayList<>();
+
+        receiptRequestDTO.getBarcodes().forEach(barcodeMap -> {
+            Optional<Map<String, String>> barCodeFound = normalizedBarcodes.stream()
+                    .filter(barcodeMapItem -> barcodeMapItem.get("id").equals( barcodeMap.get("id")))
+                    .findFirst();
+
+            if(barCodeFound.isEmpty()) {
+                normalizedBarcodes.addLast(barcodeMap);
+            } else {
+                barCodeFound.get().merge("quantity", barcodeMap.get("quantity"), (currValue, newValue) -> String.valueOf(Integer.parseInt(currValue) + Integer.parseInt(newValue)));
+            }
+        });
+
+        return new ReceiptRequestDTO(receiptRequestDTO.getDate(), normalizedBarcodes);
     }
 }
