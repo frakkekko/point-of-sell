@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.DTO.receipt.ReceiptRequestDTO;
 import ws.peoplefirst.point_of_sell.DTO.receipt.ReceiptResponseDTO;
+import ws.peoplefirst.point_of_sell.exception.custom.PriceNotFoundException;
+import ws.peoplefirst.point_of_sell.exception.custom.ProductNotAvailableInMagazineException;
 import ws.peoplefirst.point_of_sell.mapper.ReceiptMapper;
 import ws.peoplefirst.point_of_sell.model.*;
 import ws.peoplefirst.point_of_sell.repository.BarCodeRepository;
@@ -65,7 +67,7 @@ public class ReceiptService {
                     .filter(currentPrice ->
                             LocalDate.now().isAfter(currentPrice.getDateStartValidity()) && LocalDate.now().isBefore(currentPrice.getDateEndValidity()))
                     .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Price not found"));
+                    .orElseThrow(() -> new PriceNotFoundException(barcodeId));
 
             return new SelledProduct(receipt, barcode, quantity, price.getAmount());
         }).toList();
@@ -76,7 +78,13 @@ public class ReceiptService {
             Stock productStock = stockRepository.findByProductId(selledProduct.getBarCode().getProduct().getId());
             Integer newQuantity = productStock.getQuantity() - selledProduct.getQuantity();
 
-            if(newQuantity < 0) throw new RuntimeException("Products not available in magazine");
+            if(newQuantity < 0) {
+                throw new ProductNotAvailableInMagazineException(
+                        selledProduct.getBarCode().getProduct().getId(),
+                        productStock.getQuantity(),
+                        selledProduct.getQuantity()
+                );
+            }
 
             productStock.setQuantity(productStock.getQuantity() - selledProduct.getQuantity());
             stockRepository.save(productStock);
