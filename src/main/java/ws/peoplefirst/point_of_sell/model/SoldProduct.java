@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "selled_product")
-public class SelledProduct {
+public class SoldProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,9 +30,9 @@ public class SelledProduct {
     @Column(name = "total")
     private Double total;
 
-    public SelledProduct() {}
+    public SoldProduct() {}
 
-    public SelledProduct(Receipt receipt, BarCode barCode, Integer quantity, Double singlePrice) {
+    public SoldProduct(Receipt receipt, BarCode barCode, Integer quantity, Double singlePrice) {
         this.receipt = receipt;
         this.barCode = barCode;
         this.quantity = quantity;

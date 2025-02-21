@@ -1,6 +1,6 @@
 package ws.peoplefirst.point_of_sell.DTO.receipt;
 
-import ws.peoplefirst.point_of_sell.DTO.selledProduct.SelledProductResponseDTO;
+import ws.peoplefirst.point_of_sell.DTO.soldProduct.SoldProductResponseDTO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,16 +11,16 @@ import java.util.UUID;
 public class ReceiptResponseDTO {
     private UUID id;
     private LocalDate date;
-    private List<SelledProductResponseDTO> selledProducts;
+    private List<SoldProductResponseDTO> soldProducts;
     private Double total;
 
     public ReceiptResponseDTO() {
     }
 
-    public ReceiptResponseDTO(UUID id, LocalDate date, List<SelledProductResponseDTO> selledProducts, Double total) {
+    public ReceiptResponseDTO(UUID id, LocalDate date, List<SoldProductResponseDTO> soldProducts, Double total) {
         this.id = id;
         this.date = date;
-        this.selledProducts = selledProducts;
+        this.soldProducts = soldProducts;
         this.total = total;
     }
 
@@ -40,12 +40,12 @@ public class ReceiptResponseDTO {
         this.date = date;
     }
 
-    public List<SelledProductResponseDTO> getSelledProducts() {
-        return selledProducts;
+    public List<SoldProductResponseDTO> getSoldProducts() {
+        return soldProducts;
     }
 
-    public void setSelledProducts(List<SelledProductResponseDTO> selledProducts) {
-        this.selledProducts = selledProducts;
+    public void setSoldProducts(List<SoldProductResponseDTO> soldProducts) {
+        this.soldProducts = soldProducts;
     }
 
     public Double getTotal() {

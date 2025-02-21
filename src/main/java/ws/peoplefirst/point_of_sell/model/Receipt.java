@@ -25,13 +25,13 @@ public class Receipt {
     private Double total;
 
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SelledProduct> selledProducts;
+    private List<SoldProduct> soldProducts;
 
     public Receipt() {}
 
-    public Receipt(LocalDate date, List<SelledProduct> selledProducts, Double total) {
+    public Receipt(LocalDate date, List<SoldProduct> soldProducts, Double total) {
         this.date = date;
-        this.selledProducts = selledProducts;
+        this.soldProducts = soldProducts;
         this.total = total;
     }
 
@@ -47,12 +47,12 @@ public class Receipt {
         this.date = date;
     }
 
-    public void setSelledProducts(List<SelledProduct> selledProducts) {
-        this.selledProducts = selledProducts;
+    public void setSoldProducts(List<SoldProduct> soldProducts) {
+        this.soldProducts = soldProducts;
     }
     
-    public List<SelledProduct> getSelledProducts() {
-        return selledProducts;
+    public List<SoldProduct> getSoldProducts() {
+        return soldProducts;
     }
 
     public Double getTotal() {

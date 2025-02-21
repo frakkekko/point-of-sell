@@ -42,13 +42,13 @@ public class ReceiptService {
         Receipt receipt = new Receipt();
         ReceiptRequestDTO normalizedReceiptRequestDTO = normalizeReceiptRequestDTO(receiptRequestDTO);
 
-        List<SelledProduct> selledProducts = getSelledProductsFromReceiptRequestDTO(normalizedReceiptRequestDTO, receipt);
+        List<SoldProduct> soldProducts = getSoldProductsFromReceiptRequestDTO(normalizedReceiptRequestDTO, receipt);
 
-        updateStock(selledProducts);
+        updateStock(soldProducts);
 
-        receipt.setSelledProducts(selledProducts);
+        receipt.setSoldProducts(soldProducts);
         receipt.setDate(normalizedReceiptRequestDTO.getDate());
-        receipt.setTotal(calcReceiptTotal(selledProducts));
+        receipt.setTotal(calcReceiptTotal(soldProducts));
 
         Receipt receiptSaved = receiptRepository.save(receipt);
 
@@ -57,7 +57,7 @@ public class ReceiptService {
 
     // --------------------------------------------------------------
 
-    private List<SelledProduct> getSelledProductsFromReceiptRequestDTO(ReceiptRequestDTO receiptRequestDTO, Receipt receipt) {
+    private List<SoldProduct> getSoldProductsFromReceiptRequestDTO(ReceiptRequestDTO receiptRequestDTO, Receipt receipt) {
         return receiptRequestDTO.getBarcodes().stream().map(barcodeMap -> {
             UUID barcodeId = UUID.fromString(barcodeMap.get("id"));
             Integer quantity = Integer.valueOf(barcodeMap.get("quantity"));
@@ -69,31 +69,31 @@ public class ReceiptService {
                     .findFirst()
                     .orElseThrow(() -> new PriceNotFoundException(barcodeId));
 
-            return new SelledProduct(receipt, barcode, quantity, price.getAmount());
+            return new SoldProduct(receipt, barcode, quantity, price.getAmount());
         }).toList();
     }
 
-    private void updateStock(List<SelledProduct> selledProducts) {
-        selledProducts.stream().forEach(selledProduct -> {
-            Stock productStock = stockRepository.findByProductId(selledProduct.getBarCode().getProduct().getId());
-            Integer newQuantity = productStock.getQuantity() - selledProduct.getQuantity();
+    private void updateStock(List<SoldProduct> soldProducts) {
+        soldProducts.stream().forEach(soldProduct -> {
+            Stock productStock = stockRepository.findByProductId(soldProduct.getBarCode().getProduct().getId());
+            Integer newQuantity = productStock.getQuantity() - soldProduct.getQuantity();
 
             if(newQuantity < 0) {
                 throw new ProductNotAvailableInMagazineException(
-                        selledProduct.getBarCode().getProduct().getId(),
+                        soldProduct.getBarCode().getProduct().getId(),
                         productStock.getQuantity(),
-                        selledProduct.getQuantity()
+                        soldProduct.getQuantity()
                 );
             }
 
-            productStock.setQuantity(productStock.getQuantity() - selledProduct.getQuantity());
+            productStock.setQuantity(productStock.getQuantity() - soldProduct.getQuantity());
             stockRepository.save(productStock);
         });
     }
 
-    private Double calcReceiptTotal(List<SelledProduct> selledProducts) {
-        return selledProducts.stream()
-                .map(selledProduct -> selledProduct.getTotal())
+    private Double calcReceiptTotal(List<SoldProduct> soldProducts) {
+        return soldProducts.stream()
+                .map(soldProduct -> soldProduct.getTotal())
                 .reduce(0.0, Double::sum);
     }
 

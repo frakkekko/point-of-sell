@@ -12,27 +12,28 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/receipts")
 public class ReceiptController {
 
-    private ReceiptService receiptService;
+    private final ReceiptService receiptService;
 
     @Autowired
     public ReceiptController(ReceiptService receiptService) {
         this.receiptService = receiptService;
     }
 
-    @GetMapping("/receipts")
+    @GetMapping
     public ResponseEntity<List<ReceiptResponseDTO>> getAll() {
-        return new ResponseEntity(receiptService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(receiptService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/receipt/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ReceiptResponseDTO> getReceiptById(@PathVariable UUID id) {
-        return new ResponseEntity(receiptService.getById(id), HttpStatus.OK);
+        return new ResponseEntity<>(receiptService.getById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/receipt")
+    @PostMapping
     public ResponseEntity<ReceiptResponseDTO> createNewReceipt(@RequestBody ReceiptRequestDTO receiptRequestDTO) {
-        return new ResponseEntity<ReceiptResponseDTO>(receiptService.createNewReceipt(receiptRequestDTO),  HttpStatus.CREATED);
+        return new ResponseEntity<>(receiptService.createNewReceipt(receiptRequestDTO),  HttpStatus.CREATED);
     }
 }

@@ -1,20 +1,20 @@
-package ws.peoplefirst.point_of_sell.DTO.selledProduct;
+package ws.peoplefirst.point_of_sell.DTO.soldProduct;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.UUID;
 
-public class SelledProductResponseDTO {
+public class SoldProductResponseDTO {
     private UUID id;
     private UUID receiptId;
     private UUID barCodeId;
     private Integer quantity;
     private Double total;
 
-    public SelledProductResponseDTO() {
+    public SoldProductResponseDTO() {
     }
 
-    public SelledProductResponseDTO(UUID id, UUID receiptId, Integer quantity, UUID barCodeId, Double total) {
+    public SoldProductResponseDTO(UUID id, UUID receiptId, Integer quantity, UUID barCodeId, Double total) {
         this.id = id;
         this.receiptId = receiptId;
         this.quantity = quantity;

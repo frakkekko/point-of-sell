@@ -36,12 +36,12 @@ public class ReportController {
         return new ResponseEntity<>(reportService.calculateSoldProductsForDay(date), HttpStatus.OK);
     }
 
-    @GetMapping("/total-collection-by-departement-day/{date}")
+    @GetMapping("/total-collection-by-department-day/{date}")
     public ResponseEntity<ReportTotalCollectionByDepartmentByDayResponseDTO> getCollectionForDepartmentDay(@PathVariable LocalDate date) {
         return new ResponseEntity<>(reportService.calculateCollectionForDepartmentDay(date), HttpStatus.OK);
     }
 
-    @GetMapping("/total-collection-by-departement-year/{year}")
+    @GetMapping("/total-collection-by-department-year/{year}")
     public ResponseEntity<ReportTotalCollectionByDepartmentByYearResponseDTO> getCollectionForDepartmentDay(@PathVariable String year) {
         return new ResponseEntity<>(reportService.calculateCollectionForDepartmentYear(year), HttpStatus.OK);
     }

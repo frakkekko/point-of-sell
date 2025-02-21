@@ -9,7 +9,7 @@ public class ReceiptMapper {
         return new ReceiptResponseDTO(
                 receipt.getId(),
                 receipt.getDate(),
-                receipt.getSelledProducts().stream().map(selledProduct -> SelledProductMapper.toResponseDTO(selledProduct)).toList(),
+                receipt.getSoldProducts().stream().map(soldProduct -> SoldProductMapper.toResponseDTO(soldProduct)).toList(),
                 receipt.getTotal()
         );
     }
