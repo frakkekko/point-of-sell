@@ -33,6 +33,6 @@ public class ReceiptController {
 
     @PostMapping("/receipt")
     public ResponseEntity<ReceiptResponseDTO> createNewReceipt(@RequestBody ReceiptRequestDTO receiptRequestDTO) {
-        return new ResponseEntity<ReceiptResponseDTO>(receiptService.createNewReceipt(receiptRequestDTO),  HttpStatus.OK);
+        return new ResponseEntity<ReceiptResponseDTO>(receiptService.createNewReceipt(receiptRequestDTO),  HttpStatus.CREATED);
     }
 }
