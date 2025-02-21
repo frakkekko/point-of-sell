@@ -1,5 +1,7 @@
 package ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 public class ReportTotalCollectionByProductItemDTO {
@@ -41,7 +43,7 @@ public class ReportTotalCollectionByProductItemDTO {
     }
 
     public Double getTotalCollection() {
-        return totalCollection;
+        return new BigDecimal(totalCollection).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public void setTotalCollection(Double totalCollection) {
