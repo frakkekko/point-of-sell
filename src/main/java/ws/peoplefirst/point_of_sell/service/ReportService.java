@@ -28,8 +28,8 @@ public class ReportService {
     public ReportTotalCollectionByDateResponseDTO calculateTotalCollectionByDate(LocalDate date) {
         List<Receipt> receiptEmittedForDate = receiptRepository.findAllByDate(date);
 
-        Integer totalProductQuantitySoldForDate = getTotalProductQuantitySoldForDate(receiptEmittedForDate);
-        Double totalCollectionForDate = getTotalCollectionForDate(receiptEmittedForDate);
+        Integer totalProductQuantitySoldForDate = calculateTotalProductQuantitySoldForDate(receiptEmittedForDate);
+        Double totalCollectionForDate = calculateTotalCollectionForDate(receiptEmittedForDate);
 
         return new ReportTotalCollectionByDateResponseDTO(totalProductQuantitySoldForDate, totalCollectionForDate);
     }
@@ -39,7 +39,7 @@ public class ReportService {
                 .flatMap(receipt -> receipt.getSelledProducts().stream())
                 .toList();
 
-        List<ReportTotalCollectionByProductItemDTO> reportProductItemList = getReportProductItemListFromSelledProducts(selledProducts);
+        List<ReportTotalCollectionByProductItemDTO> reportProductItemList = buildReportProductItemListFromSelledProducts(selledProducts);
 
         return new ReportTotalCollectionByProductByDayResponseDTO(
                 reportProductItemList,
@@ -71,20 +71,20 @@ public class ReportService {
 
     // --------------------------------------------------------------------
 
-    private Integer getTotalProductQuantitySoldForDate(List<Receipt> receiptEmittedForDate) {
+    private Integer calculateTotalProductQuantitySoldForDate(List<Receipt> receiptEmittedForDate) {
         return receiptEmittedForDate.stream()
                 .flatMap(receipt -> receipt.getSelledProducts().stream())
                 .mapToInt(SelledProduct::getQuantity)
                 .sum();
     }
 
-    private Double getTotalCollectionForDate(List<Receipt> receiptEmittedForDate) {
+    private Double calculateTotalCollectionForDate(List<Receipt> receiptEmittedForDate) {
         return receiptEmittedForDate.stream()
                 .mapToDouble(Receipt::getTotal)
                 .sum();
     }
 
-    private List<ReportTotalCollectionByProductItemDTO> getReportProductItemListFromSelledProducts(List<SelledProduct> selledProducts) {
+    private List<ReportTotalCollectionByProductItemDTO> buildReportProductItemListFromSelledProducts(List<SelledProduct> selledProducts) {
 
         List<ReportTotalCollectionByProductItemDTO> reportProductItemList = new ArrayList<>();
 
