@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class ReportService {
 
-    private ReceiptRepository receiptRepository;
+    private final ReceiptRepository receiptRepository;
 
     @Autowired
     public ReportService(ReceiptRepository receiptRepository) {
@@ -39,15 +39,62 @@ public class ReportService {
                 .flatMap(receipt -> receipt.getSelledProducts().stream())
                 .toList();
 
-        List<ReportTotalCollectionByProductItemDTO> normalizedProductList = new ArrayList<>();
+        List<ReportTotalCollectionByProductItemDTO> reportProductItemList = getReportProductItemListFromSelledProducts(selledProducts);
+
+        return new ReportTotalCollectionByProductByDayResponseDTO(
+                reportProductItemList,
+                reportProductItemList.stream().mapToInt(ReportTotalCollectionByProductItemDTO::getQuantity).sum(),
+                date
+        );
+    }
+
+    public ReportTotalCollectionByDepartmentByDayResponseDTO calculateCollectionForDepartmentDay(LocalDate date) {
+        List<SelledProduct> selledProducts = receiptRepository.findAllByDate(date).stream()
+                .flatMap(receipt -> receipt.getSelledProducts().stream())
+                .toList();
+
+        List<ReportTotalCollectionByDepartmentItemDTO> departmentItemList = buildDepartmentItemListFromSelledProduct(selledProducts);
+
+        return new ReportTotalCollectionByDepartmentByDayResponseDTO(departmentItemList, date);
+    }
+
+    public ReportTotalCollectionByDepartmentByYearResponseDTO calculateCollectionForDepartmentYear(String year) {
+        List<SelledProduct> selledProducts = receiptRepository.findAll().stream()
+                .filter(receipt -> receipt.getDate().getYear() == Integer.parseInt(year))
+                .flatMap(receipt -> receipt.getSelledProducts().stream())
+                .toList();
+
+        List<ReportTotalCollectionByDepartmentItemDTO> departmentItemList = buildDepartmentItemListFromSelledProduct(selledProducts);
+
+        return new ReportTotalCollectionByDepartmentByYearResponseDTO(departmentItemList, year);
+    }
+
+    // --------------------------------------------------------------------
+
+    private Integer getTotalProductQuantitySoldForDate(List<Receipt> receiptEmittedForDate) {
+        return receiptEmittedForDate.stream()
+                .flatMap(receipt -> receipt.getSelledProducts().stream())
+                .mapToInt(SelledProduct::getQuantity)
+                .sum();
+    }
+
+    private Double getTotalCollectionForDate(List<Receipt> receiptEmittedForDate) {
+        return receiptEmittedForDate.stream()
+                .mapToDouble(Receipt::getTotal)
+                .sum();
+    }
+
+    private List<ReportTotalCollectionByProductItemDTO> getReportProductItemListFromSelledProducts(List<SelledProduct> selledProducts) {
+
+        List<ReportTotalCollectionByProductItemDTO> reportProductItemList = new ArrayList<>();
 
         selledProducts.forEach(selledProduct -> {
-            Optional<ReportTotalCollectionByProductItemDTO> normItemFound = normalizedProductList.stream()
+            Optional<ReportTotalCollectionByProductItemDTO> normItemFound = reportProductItemList.stream()
                     .filter(normItem -> normItem.getProductId() == selledProduct.getBarCode().getProduct().getId())
                     .findFirst();
 
             if(normItemFound.isEmpty()) {
-                normalizedProductList.addLast(new ReportTotalCollectionByProductItemDTO(
+                reportProductItemList.addLast(new ReportTotalCollectionByProductItemDTO(
                         selledProduct.getBarCode().getProduct().getId(),
                         selledProduct.getBarCode().getProduct().getName(),
                         selledProduct.getQuantity(),
@@ -64,45 +111,14 @@ public class ReportService {
             }
         });
 
-        return new ReportTotalCollectionByProductByDayResponseDTO(
-                normalizedProductList,
-                normalizedProductList.stream().mapToInt(ReportTotalCollectionByProductItemDTO::getQuantity).sum(),
-                date
-        );
+        return reportProductItemList;
     }
 
-    public ReportTotalCollectionByDepartmentByDayResponseDTO calculateCollectionForDepartmentDay(LocalDate date) {
-        List<SelledProduct> selledProducts = receiptRepository.findAllByDate(date).stream()
-                .flatMap(receipt -> receipt.getSelledProducts().stream())
-                .toList();
+    private List<ReportTotalCollectionByDepartmentItemDTO> buildDepartmentItemListFromSelledProduct(List<SelledProduct> selledProducts) {
+        List<ReportTotalCollectionByDepartmentItemDTO> departmentItemList = new ArrayList<>();
 
         Map<String,List<SelledProduct>> groupedData = selledProducts.stream().collect(Collectors.groupingBy(
                 selledProduct -> selledProduct.getBarCode().getProduct().getDepartement()));
-
-        List<ReportTotalCollectionByDepartmentItemDTO> departmentItemList = new ArrayList<>();
-
-        groupedData.forEach((department, selledProductList) -> {
-            departmentItemList.addLast(
-                    new ReportTotalCollectionByDepartmentItemDTO(
-                            department,
-                            selledProductList.stream().mapToDouble(SelledProduct::getTotal).sum()
-                            )
-            );
-        });
-
-        return new ReportTotalCollectionByDepartmentByDayResponseDTO(departmentItemList, date);
-    }
-
-    public ReportTotalCollectionByDepartmentByYearResponseDTO calculateCollectionForDepartmentYear(String year) {
-        List<SelledProduct> selledProducts = receiptRepository.findAll().stream()
-                .filter(receipt -> receipt.getDate().getYear() == Integer.parseInt(year))
-                .flatMap(receipt -> receipt.getSelledProducts().stream())
-                .toList();
-
-        Map<String,List<SelledProduct>> groupedData = selledProducts.stream().collect(Collectors.groupingBy(
-                selledProduct -> selledProduct.getBarCode().getProduct().getDepartement()));
-
-        List<ReportTotalCollectionByDepartmentItemDTO> departmentItemList = new ArrayList<>();
 
         groupedData.forEach((department, selledProductList) -> {
             departmentItemList.addLast(
@@ -113,21 +129,6 @@ public class ReportService {
             );
         });
 
-        return new ReportTotalCollectionByDepartmentByYearResponseDTO(departmentItemList, year);
-    }
-
-    // --------------------------------------------------------------------
-
-    private Integer getTotalProductQuantitySoldForDate(List<Receipt> receiptEmittedForDate) {
-        return receiptEmittedForDate.stream()
-                .flatMap(receipt -> receipt.getSelledProducts().stream())
-                .map(selledProduct -> selledProduct.getQuantity())
-                .reduce(0, Integer::sum);
-    }
-
-    private Double getTotalCollectionForDate(List<Receipt> receiptEmittedForDate) {
-        return receiptEmittedForDate.stream()
-                .map(receipt -> receipt.getTotal())
-                .reduce(0.0, Double::sum);
+        return departmentItemList;
     }
 }
