@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
+import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByDayResponseDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductByDayResponseDTO;
 import ws.peoplefirst.point_of_sell.service.ReportService;
 
@@ -34,8 +35,8 @@ public class ReportController {
         return new ResponseEntity<>(reportService.calculateSoldProductsForDay(date), HttpStatus.OK);
     }
 
-//    @GetMapping("/total-collection-by-departement-day/{date}")
-//    public ResponseEntity<ReportTotalCollectionByDepartmentByDayResponseDTO> getCollectionForDepartmentDay(@PathVariable LocalDate date) {
-//
-//    }
+    @GetMapping("/total-collection-by-departement-day/{date}")
+    public ResponseEntity<ReportTotalCollectionByDepartmentByDayResponseDTO> getCollectionForDepartmentDay(@PathVariable LocalDate date) {
+        return new ResponseEntity<>(reportService.calculateCollectionForDepartmentDay(date), HttpStatus.OK);
+    }
 }

@@ -3,6 +3,8 @@ package ws.peoplefirst.point_of_sell.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
+import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByDayResponseDTO;
+import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentDayItemDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductByDayResponseDTO;
 import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductItemDTO;
 import ws.peoplefirst.point_of_sell.model.Receipt;
@@ -12,7 +14,9 @@ import ws.peoplefirst.point_of_sell.repository.ReceiptRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -70,9 +74,27 @@ public class ReportService {
         );
     }
 
-//    public ReportTotalCollectionByDepartmentByDayResponseDTO calculateCollectionForDepartmentDay(LocalDate date) {
-//
-//    }
+    public ReportTotalCollectionByDepartmentByDayResponseDTO calculateCollectionForDepartmentDay(LocalDate date) {
+        List<SelledProduct> selledProducts = receiptRepository.findAllByDate(date).stream()
+                .flatMap(receipt -> receipt.getSelledProducts().stream())
+                .toList();
+
+        Map<String,List<SelledProduct>> groupedData = selledProducts.stream().collect(Collectors.groupingBy(
+                selledProduct -> selledProduct.getBarCode().getProduct().getDepartement()));
+
+        List<ReportTotalCollectionByDepartmentDayItemDTO> departmentDayItemList = new ArrayList<>();
+
+        groupedData.forEach((department, selledProductList) -> {
+            departmentDayItemList.addLast(
+                    new ReportTotalCollectionByDepartmentDayItemDTO(
+                            department,
+                            selledProductList.stream().mapToDouble(SelledProduct::getTotal).sum()
+                            )
+            );
+        });
+
+        return new ReportTotalCollectionByDepartmentByDayResponseDTO(departmentDayItemList, date);
+    }
 
     // --------------------------------------------------------------------
 
