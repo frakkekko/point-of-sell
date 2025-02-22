@@ -1,6 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.barcode;
-
-import ws.peoplefirst.point_of_sell.model.Product;
+package ws.peoplefirst.point_of_sell.dto.barcode;
 
 import java.time.LocalDate;
 import java.util.List;

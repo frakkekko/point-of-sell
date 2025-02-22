@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByDayResponseDTO;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByYearResponseDTO;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.ReportTotalCollectionByProductByDayResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByDayResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDepartment.ReportTotalCollectionByDepartmentByYearResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDepartment.ReportTotalCollectionByProductByDayResponseDTO;
 import ws.peoplefirst.point_of_sell.service.ReportService;
 
 import java.time.LocalDate;

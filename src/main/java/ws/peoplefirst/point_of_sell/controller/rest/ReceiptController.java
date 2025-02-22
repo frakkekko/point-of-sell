@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ws.peoplefirst.point_of_sell.DTO.receipt.ReceiptRequestDTO;
-import ws.peoplefirst.point_of_sell.DTO.receipt.ReceiptResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptRequestDTO;
+import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptResponseDTO;
 import ws.peoplefirst.point_of_sell.service.ReceiptService;
 
 import java.util.List;

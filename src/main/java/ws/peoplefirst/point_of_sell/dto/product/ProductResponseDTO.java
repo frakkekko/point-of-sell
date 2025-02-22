@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.product;
+package ws.peoplefirst.point_of_sell.dto.product;
 
 import java.util.List;
 import java.util.UUID;

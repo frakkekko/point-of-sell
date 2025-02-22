@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.exception.responseDTO;
+package ws.peoplefirst.point_of_sell.exception.responseDto;
 
 public class CommonExceptionResponseDTO {
 

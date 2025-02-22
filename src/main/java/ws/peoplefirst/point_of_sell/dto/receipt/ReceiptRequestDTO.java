@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.receipt;
+package ws.peoplefirst.point_of_sell.dto.receipt;
 
 import java.time.LocalDate;
 import java.util.List;

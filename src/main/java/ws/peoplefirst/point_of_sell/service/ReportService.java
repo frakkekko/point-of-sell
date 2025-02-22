@@ -2,8 +2,8 @@ package ws.peoplefirst.point_of_sell.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
-import ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment.*;
+import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDepartment.*;
 import ws.peoplefirst.point_of_sell.model.Receipt;
 import ws.peoplefirst.point_of_sell.model.SoldProduct;
 import ws.peoplefirst.point_of_sell.repository.ReceiptRepository;
@@ -118,7 +118,7 @@ public class ReportService {
         List<ReportTotalCollectionByDepartmentItemDTO> departmentItemList = new ArrayList<>();
 
         Map<String,List<SoldProduct>> groupedData = soldProducts.stream().collect(Collectors.groupingBy(
-                soldProduct -> soldProduct.getBarCode().getProduct().getDepartement()));
+                soldProduct -> soldProduct.getBarCode().getProduct().getDepartment()));
 
         groupedData.forEach((department, soldProductList) -> {
             departmentItemList.addLast(

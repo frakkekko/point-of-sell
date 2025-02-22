@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDate;
+package ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

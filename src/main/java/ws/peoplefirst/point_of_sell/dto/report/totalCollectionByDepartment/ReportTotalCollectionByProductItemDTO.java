@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.report.totalCollectionByDepartment;
+package ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDepartment;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

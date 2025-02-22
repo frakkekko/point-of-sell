@@ -2,7 +2,7 @@ package ws.peoplefirst.point_of_sell.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ws.peoplefirst.point_of_sell.DTO.barcode.BarcodeResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.barcode.BarcodeResponseDTO;
 import ws.peoplefirst.point_of_sell.mapper.BarCodeMapper;
 import ws.peoplefirst.point_of_sell.repository.BarCodeRepository;
 

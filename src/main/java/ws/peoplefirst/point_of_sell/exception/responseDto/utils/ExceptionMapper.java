@@ -1,6 +1,6 @@
-package ws.peoplefirst.point_of_sell.exception.responseDTO.utils;
+package ws.peoplefirst.point_of_sell.exception.responseDto.utils;
 
-import ws.peoplefirst.point_of_sell.exception.responseDTO.CommonExceptionResponseDTO;
+import ws.peoplefirst.point_of_sell.exception.responseDto.CommonExceptionResponseDTO;
 
 public class ExceptionMapper {
 

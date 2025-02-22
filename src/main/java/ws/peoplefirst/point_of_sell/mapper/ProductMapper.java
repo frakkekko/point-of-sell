@@ -1,6 +1,7 @@
 package ws.peoplefirst.point_of_sell.mapper;
 
-import ws.peoplefirst.point_of_sell.DTO.product.ProductResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.product.ProductResponseDTO;
+import ws.peoplefirst.point_of_sell.model.BarCode;
 import ws.peoplefirst.point_of_sell.model.Product;
 
 public class ProductMapper {
@@ -11,8 +12,8 @@ public class ProductMapper {
                 product.getName(),
                 product.getWeight(),
                 product.getUnitType(),
-                product.getDepartement(),
-                product.getBarcodes().stream().map(barcode -> barcode.getId()).toList(),
+                product.getDepartment(),
+                product.getBarcodes().stream().map(BarCode::getId).toList(),
                 product.getStock().getQuantity()
         );
     }

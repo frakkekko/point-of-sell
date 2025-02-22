@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.stock;
+package ws.peoplefirst.point_of_sell.dto.stock;
 
 
 import java.time.LocalDate;

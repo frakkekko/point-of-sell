@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.price;
+package ws.peoplefirst.point_of_sell.dto.price;
 
 import java.time.LocalDate;
 import java.util.UUID;

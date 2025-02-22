@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ws.peoplefirst.point_of_sell.DTO.product.ProductResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.product.ProductResponseDTO;
 import ws.peoplefirst.point_of_sell.service.ProductService;
 
 import java.util.List;

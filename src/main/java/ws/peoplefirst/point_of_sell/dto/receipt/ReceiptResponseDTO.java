@@ -1,6 +1,6 @@
-package ws.peoplefirst.point_of_sell.DTO.receipt;
+package ws.peoplefirst.point_of_sell.dto.receipt;
 
-import ws.peoplefirst.point_of_sell.DTO.soldProduct.SoldProductResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.soldProduct.SoldProductResponseDTO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

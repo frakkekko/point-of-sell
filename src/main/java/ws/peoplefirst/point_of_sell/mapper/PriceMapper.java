@@ -1,6 +1,6 @@
 package ws.peoplefirst.point_of_sell.mapper;
 
-import ws.peoplefirst.point_of_sell.DTO.price.PriceResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.price.PriceResponseDTO;
 import ws.peoplefirst.point_of_sell.model.Price;
 
 public class PriceMapper {

@@ -2,8 +2,8 @@ package ws.peoplefirst.point_of_sell.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ws.peoplefirst.point_of_sell.DTO.receipt.ReceiptRequestDTO;
-import ws.peoplefirst.point_of_sell.DTO.receipt.ReceiptResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptRequestDTO;
+import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptResponseDTO;
 import ws.peoplefirst.point_of_sell.exception.custom.PriceNotFoundException;
 import ws.peoplefirst.point_of_sell.exception.custom.ProductNotAvailableInMagazineException;
 import ws.peoplefirst.point_of_sell.mapper.ReceiptMapper;
@@ -30,7 +30,7 @@ public class ReceiptService {
     }
 
     public List<ReceiptResponseDTO> getAll() {
-        return receiptRepository.findAll().stream().map(receipt -> ReceiptMapper.toResponseDTO(receipt)).toList();
+        return receiptRepository.findAll().stream().map(ReceiptMapper::toResponseDTO).toList();
     }
 
     public ReceiptResponseDTO getById(UUID id) {
@@ -74,9 +74,10 @@ public class ReceiptService {
     }
 
     private void updateStock(List<SoldProduct> soldProducts) {
-        soldProducts.stream().forEach(soldProduct -> {
+        soldProducts.forEach(soldProduct -> {
             Stock productStock = stockRepository.findByProductId(soldProduct.getBarCode().getProduct().getId());
-            Integer newQuantity = productStock.getQuantity() - soldProduct.getQuantity();
+
+            int newQuantity = productStock.getQuantity() - soldProduct.getQuantity();
 
             if(newQuantity < 0) {
                 throw new ProductNotAvailableInMagazineException(

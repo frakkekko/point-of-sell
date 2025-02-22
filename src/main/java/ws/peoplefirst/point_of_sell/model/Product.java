@@ -26,8 +26,8 @@ public class Product {
     @Column(name = "unit_type")
     private String unitType;
 
-    @Column(name = "departement")
-    private String departement;
+    @Column(name = "department")
+    private String department;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BarCode> barcodes;
@@ -37,11 +37,11 @@ public class Product {
 
     public Product() {};
 
-    public Product(String name, Double weight, String unitType, String departement, List<BarCode> barcodes, Stock stock) {
+    public Product(String name, Double weight, String unitType, String department, List<BarCode> barcodes, Stock stock) {
         this.name = name;
         this.weight = weight;
         this.unitType = unitType;
-        this.departement = departement;
+        this.department = department;
         this.barcodes = barcodes;
         this.stock = stock;
     }
@@ -74,12 +74,12 @@ public class Product {
         this.unitType = unitType;
     }
 
-    public String getDepartement() {
-        return departement;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartement(String departement) {
-        this.departement = departement;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public List<BarCode> getBarcodes() {

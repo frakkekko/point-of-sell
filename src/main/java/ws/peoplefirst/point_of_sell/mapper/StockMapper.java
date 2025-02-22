@@ -1,6 +1,6 @@
 package ws.peoplefirst.point_of_sell.mapper;
 
-import ws.peoplefirst.point_of_sell.DTO.stock.StockResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.stock.StockResponseDTO;
 import ws.peoplefirst.point_of_sell.model.Stock;
 
 public class StockMapper {

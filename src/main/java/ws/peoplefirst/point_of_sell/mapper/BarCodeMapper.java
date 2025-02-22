@@ -1,7 +1,8 @@
 package ws.peoplefirst.point_of_sell.mapper;
 
-import ws.peoplefirst.point_of_sell.DTO.barcode.BarcodeResponseDTO;
+import ws.peoplefirst.point_of_sell.dto.barcode.BarcodeResponseDTO;
 import ws.peoplefirst.point_of_sell.model.BarCode;
+import ws.peoplefirst.point_of_sell.model.Price;
 
 public class BarCodeMapper {
 
@@ -12,7 +13,7 @@ public class BarCodeMapper {
                 barcode.getDateStartValidity(),
                 barcode.getDateEndValidity(),
                 barcode.getProduct().getId(),
-                barcode.getPrices().stream().map(price -> price.getId()).toList()
+                barcode.getPrices().stream().map(Price::getId).toList()
         );
     }
 }

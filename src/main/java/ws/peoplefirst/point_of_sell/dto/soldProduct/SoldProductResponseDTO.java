@@ -1,4 +1,4 @@
-package ws.peoplefirst.point_of_sell.DTO.soldProduct;
+package ws.peoplefirst.point_of_sell.dto.soldProduct;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
