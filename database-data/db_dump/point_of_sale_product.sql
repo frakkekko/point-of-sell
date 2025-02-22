@@ -27,7 +27,7 @@ CREATE TABLE `product` (
   `name` varchar(45) NOT NULL,
   `weight` decimal(10,2) NOT NULL,
   `unit_type` varchar(20) NOT NULL,
-  `departement` varchar(45) NOT NULL,
+  `department` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-22  1:27:44
+-- Dump completed on 2025-02-22  2:58:26
