@@ -7,7 +7,7 @@ import java.sql.Types;
 import java.util.UUID;
 
 @Entity
-@Table(name = "selled_product")
+@Table(name = "sold_product")
 public class SoldProduct {
 
     @Id
