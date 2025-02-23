@@ -76,22 +76,22 @@ public class ReceiptService {
     }
 
     private void updateStock(List<SoldProduct> soldProducts) {
+        List<Stock> updatedStocks = new ArrayList<>();
+
         soldProducts.forEach(soldProduct -> {
             Stock productStock = stockRepository.findByProductId(soldProduct.getBarCode().getProduct().getId());
 
             int newQuantity = productStock.getQuantity() - soldProduct.getQuantity();
 
             if(newQuantity < 0) {
-                throw new ProductNotAvailableInMagazineException(
-                        soldProduct.getBarCode().getProduct().getId(),
-                        productStock.getQuantity(),
-                        soldProduct.getQuantity()
-                );
+                throw new ProductNotAvailableInMagazineException(soldProduct, productStock);
             }
 
             productStock.setQuantity(productStock.getQuantity() - soldProduct.getQuantity());
-            stockRepository.save(productStock);
+            updatedStocks.addLast(productStock);
         });
+
+        stockRepository.saveAll(updatedStocks);
     }
 
     private Double calcReceiptTotal(List<SoldProduct> soldProducts) {
