@@ -43,7 +43,9 @@ public class ReportService {
 
         return new ReportTotalCollectionByProductByDayResponseDTO(
                 reportProductItemList,
-                reportProductItemList.stream().mapToInt(ReportTotalCollectionByProductItemDTO::getQuantity).sum(),
+                reportProductItemList.stream()
+                        .mapToInt(ReportTotalCollectionByProductItemDTO::getQuantity)
+                        .sum(),
                 date
         );
     }
@@ -124,7 +126,9 @@ public class ReportService {
             departmentItemList.addLast(
                     new ReportTotalCollectionByDepartmentItemDTO(
                             department,
-                            soldProductList.stream().mapToDouble(SoldProduct::getTotal).sum()
+                            soldProductList.stream()
+                                    .mapToDouble(SoldProduct::getTotal)
+                                    .sum()
                     )
             );
         });

@@ -1,5 +1,6 @@
 package ws.peoplefirst.point_of_sell.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.dto.product.ProductResponseDTO;
@@ -29,6 +30,7 @@ public class ProductService {
     }
 
     public ProductResponseDTO getById(UUID id) {
-        return ProductMapper.toResponseDTO(productRepository.getReferenceById(id));
+        return ProductMapper.toResponseDTO(productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Product with id '%s' not found", id))));
     }
 }

@@ -1,10 +1,11 @@
 package ws.peoplefirst.point_of_sell.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptRequestDTO;
 import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptResponseDTO;
-import ws.peoplefirst.point_of_sell.exception.custom.PriceNotFoundException;
+import ws.peoplefirst.point_of_sell.exception.custom.NotValidPriceFoundForBarcodeException;
 import ws.peoplefirst.point_of_sell.exception.custom.ProductNotAvailableInMagazineException;
 import ws.peoplefirst.point_of_sell.mapper.ReceiptMapper;
 import ws.peoplefirst.point_of_sell.model.*;
@@ -34,7 +35,8 @@ public class ReceiptService {
     }
 
     public ReceiptResponseDTO getById(UUID id) {
-        return ReceiptMapper.toResponseDTO(receiptRepository.getReferenceById(id));
+        return ReceiptMapper.toResponseDTO(receiptRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Receipt with id '%s' not found", id))));
     }
 
     public ReceiptResponseDTO createNewReceipt(ReceiptRequestDTO receiptRequestDTO) {
@@ -67,7 +69,7 @@ public class ReceiptService {
                     .filter(currentPrice ->
                             LocalDate.now().isAfter(currentPrice.getDateStartValidity()) && LocalDate.now().isBefore(currentPrice.getDateEndValidity()))
                     .findFirst()
-                    .orElseThrow(() -> new PriceNotFoundException(barcodeId));
+                    .orElseThrow(() -> new NotValidPriceFoundForBarcodeException(barcodeId));
 
             return new SoldProduct(receipt, barcode, quantity, price.getAmount());
         }).toList();
@@ -94,8 +96,8 @@ public class ReceiptService {
 
     private Double calcReceiptTotal(List<SoldProduct> soldProducts) {
         return soldProducts.stream()
-                .map(soldProduct -> soldProduct.getTotal())
-                .reduce(0.0, Double::sum);
+                .mapToDouble(SoldProduct::getTotal)
+                .sum();
     }
 
     private ReceiptRequestDTO normalizeReceiptRequestDTO(ReceiptRequestDTO receiptRequestDTO) {

@@ -1,5 +1,6 @@
 package ws.peoplefirst.point_of_sell.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.dto.stock.StockResponseDTO;
@@ -24,6 +25,7 @@ public class StockService {
     }
 
     public StockResponseDTO getById(UUID id) {
-        return StockMapper.toResponseDTO(stockRepository.getReferenceById(id));
+        return StockMapper.toResponseDTO(stockRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Stock with id '%s' not found", id))));
     }
 }

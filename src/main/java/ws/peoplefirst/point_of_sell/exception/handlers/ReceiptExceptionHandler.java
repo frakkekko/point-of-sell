@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ws.peoplefirst.point_of_sell.controller.rest.ReceiptController;
-import ws.peoplefirst.point_of_sell.exception.custom.PriceNotFoundException;
+import ws.peoplefirst.point_of_sell.exception.custom.NotValidPriceFoundForBarcodeException;
 import ws.peoplefirst.point_of_sell.exception.custom.ProductNotAvailableInMagazineException;
 import ws.peoplefirst.point_of_sell.exception.responseDto.CommonExceptionResponseDTO;
 import ws.peoplefirst.point_of_sell.exception.responseDto.utils.ExceptionMapper;
@@ -18,8 +18,8 @@ public class ReceiptExceptionHandler {
         return new ResponseEntity<>(ExceptionMapper.mapCommonExceptionToResponseBody(exception), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(PriceNotFoundException.class)
-    public ResponseEntity<CommonExceptionResponseDTO> handleException(PriceNotFoundException exception) {
+    @ExceptionHandler(NotValidPriceFoundForBarcodeException.class)
+    public ResponseEntity<CommonExceptionResponseDTO> handleException(NotValidPriceFoundForBarcodeException exception) {
         return new ResponseEntity<>(ExceptionMapper.mapCommonExceptionToResponseBody(exception), HttpStatus.NOT_FOUND);
     }
 
