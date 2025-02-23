@@ -1,6 +1,5 @@
 package ws.peoplefirst.point_of_sell.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDate.ReportTotalCollectionByDateResponseDTO;
 import ws.peoplefirst.point_of_sell.dto.report.totalCollectionByDepartment.*;
@@ -20,7 +19,6 @@ public class ReportService {
 
     private final ReceiptRepository receiptRepository;
 
-    @Autowired
     public ReportService(ReceiptRepository receiptRepository) {
         this.receiptRepository = receiptRepository;
     }

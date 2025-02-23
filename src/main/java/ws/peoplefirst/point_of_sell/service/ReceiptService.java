@@ -1,7 +1,6 @@
 package ws.peoplefirst.point_of_sell.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptRequestDTO;
 import ws.peoplefirst.point_of_sell.dto.receipt.ReceiptResponseDTO;
@@ -23,7 +22,6 @@ public class ReceiptService {
     private final BarCodeRepository barCodeRepository;
     private final StockRepository stockRepository;
 
-    @Autowired
     public ReceiptService(ReceiptRepository receiptRepository, BarCodeRepository barCodeRepository, StockRepository stockRepository) {
         this.receiptRepository = receiptRepository;
         this.barCodeRepository = barCodeRepository;

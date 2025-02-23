@@ -1,6 +1,5 @@
 package ws.peoplefirst.point_of_sell.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,6 @@ public class BarCodeController {
 
     private final BarCodeService barCodeService;
 
-    @Autowired
     public BarCodeController(BarCodeService barCodeService) {
         this.barCodeService = barCodeService;
     }

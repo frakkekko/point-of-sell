@@ -1,7 +1,6 @@
 package ws.peoplefirst.point_of_sell.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ws.peoplefirst.point_of_sell.dto.price.PriceResponseDTO;
 import ws.peoplefirst.point_of_sell.mapper.PriceMapper;
@@ -15,7 +14,6 @@ public class PriceService {
 
     private final PriceRepository priceRepository;
 
-    @Autowired
     public PriceService(PriceRepository priceRepository) {
         this.priceRepository = priceRepository;
     }
